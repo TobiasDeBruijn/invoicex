@@ -1,0 +1,7 @@
+[workspace]
+members = [
+  "dal",
+  "api",
+  "invoicex",
+  "proto",
+]
