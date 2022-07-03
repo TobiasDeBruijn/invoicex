@@ -1,5 +1,4 @@
 use tracing::info;
-use tracing::log::LevelFilter;
 use crate::config::Config;
 
 mod config;
@@ -29,7 +28,7 @@ async fn main() {
         frontend_host: config.http.frontend_host,
         port: config.http.port,
         password_pepper: config.security.password_pepper
-    }).await.expect("Starting web server");
+    }, driver).await.expect("Starting web server");
     // This method doesn't return as long as the web server is running
 
 
@@ -38,7 +37,7 @@ async fn main() {
     let sub = tracing_subscriber::FmtSubscriber::builder()
         .pretty()
         .compact()
-        .with_max_level(LevelFilter::Warn)
+        .with_max_level(tracing::Level::TRACE)
         .finish();
 
     tracing::subscriber::set_global_default(sub).expect("Setting subscriber");

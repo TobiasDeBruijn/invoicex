@@ -8,7 +8,7 @@ mod routes;
 #[derive(Debug, Clone)]
 pub struct Config {
     pub frontend_host: String,
-    pub port: u8,
+    pub port: u16,
     pub password_pepper: String,
 }
 

@@ -1,11 +1,9 @@
-use std::default::default;
 use std::path::{Path, PathBuf};
 use std::process::exit;
 use serde::{Deserialize, Serialize};
 use tokio::fs;
 use anyhow::Result;
 use rand::Rng;
-use serde::de::Unexpected::Str;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tracing::{info, trace, warn};
 
@@ -71,7 +69,7 @@ impl Config {
         trace!("Configuration exists");
 
         trace!("Opening configuration file at {path:?}");
-        let mut file = fs::File::open(&file_path).await?;
+        let mut file = fs::File::open(&path).await?;
 
         trace!("Reading configuration file");
         let mut buf = Vec::default();
