@@ -1,7 +1,5 @@
-pub mod entities {
-    include!(concat!(env!("OUT_DIR"), "/dev.array21.invoicex.entities.rs"));
+mod dev_array21_invoicex {
+    include!(concat!(env!("OUT_DIR"), "/dev.array21.invoicex.rs"));
 }
 
-pub mod payloads {
-    include!(concat!(env!("OUT_DIR"), "/dev.array21.invoicex.payloads.rs"));
-}
+pub use dev_array21_invoicex::*;

@@ -1,2 +1,18 @@
 syntax = "proto3";
-package dev.array21.invoicex.entities;
+package dev.array21.invoicex;
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message Session {
+  string id = 1;
+  int64 expiresAt = 2;
+  int64 lastUsed = 3;
+}
+
+enum AuthenticationMethod {
+  PASSWORD = 0;
+}

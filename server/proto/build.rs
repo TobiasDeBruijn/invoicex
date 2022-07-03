@@ -2,13 +2,18 @@ use std::{fs, io};
 use std::path::{Path, PathBuf};
 
 fn main() -> io::Result<()> {
-    println!("cargo:rerun-if-changed=./proto");
+    println!("cargo:rerun-if-changed=proto");
 
     std::env::set_var("PROTOC_NO_VENDOR", "");
 
     let protos = find_protos(Path::new("./proto"))?;
     println!("Done: {protos:?}");
-    prost_build::compile_protos(&protos, &["./proto"])?;
+
+    let mut config = prost_build::Config::new();
+    config.protoc_arg("--experimental_allow_proto3_optional");
+    config.type_attribute(".", "#[derive(serde::Serialize, serde::Deserialize)]");
+
+    config.compile_protos(&protos, &["./proto"])?;
 
     Ok(())
 }

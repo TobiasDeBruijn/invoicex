@@ -1,0 +1,17 @@
+syntax = "proto3";
+package dev.array21.invoicex;
+
+import "entities/user.proto";
+
+message LoginRequest {
+  string email = 1;
+  AuthenticationMethod authenticationMethod = 2;
+  oneof authentication {
+    string password = 3;
+  }
+}
+
+message LoginResponse {
+  User user = 1;
+  Session session = 2;
+}

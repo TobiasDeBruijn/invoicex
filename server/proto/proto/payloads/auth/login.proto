@@ -1,2 +1,0 @@
-syntax = "proto3";
-package dev.array21.invoicex.payloads;
