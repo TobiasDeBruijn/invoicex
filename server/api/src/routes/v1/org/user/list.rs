@@ -7,7 +7,7 @@ use serde::Deserialize;
 use dal::entities::OrgScope;
 use proto::OrgUserListResponse;
 use crate::error::Error;
-use crate::routes::v1::org::can_access;
+use crate::routes::v1::org::{can_access, get_user_org_scopes_proto};
 
 #[derive(Debug, Deserialize)]
 pub struct Query {
@@ -24,23 +24,14 @@ pub async fn list(data: WebData, session: Session, query: web::Query<Query>) -> 
     let users = org.list_users()?;
     let org_users = users.into_iter()
         .map(|x| {
-            let enabled_scopes = org.list_scopes(&x.user)?;
-            let org_scopes = OrgScope::variants()
-                .into_iter()
-                .map(|x| proto::OrgScope {
-                    name: x.to_string(),
-                    enabled: enabled_scopes.contains(&x)
-                })
-                .collect::<Vec<_>>();
-
             Ok(proto::OrgUser {
+                org_scopes: get_user_org_scopes_proto(&x.user, &org)?,
                 user: Some(proto::User {
                     id: x.user.id,
                     name: x.user.name,
                     email: x.user.email
                 }),
                 is_org_admin: x.is_org_admin,
-                org_scopes
             })
         })
         .collect::<WebResult<Vec<_>>>()?;

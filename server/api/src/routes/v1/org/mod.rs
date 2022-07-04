@@ -31,6 +31,19 @@ struct AccessResult<'a> {
     pub org: Org<'a>
 }
 
+/// Retrieve all OrgScope's the user has for the provided organization in Proto format
+fn get_user_org_scopes_proto(user: &User<'_>, org: &Org<'_>) -> WebResult<Vec<proto::OrgScope>> {
+    let owned_scopes = org.list_scopes(user)?;
+    let org_scopes = OrgScope::variants()
+        .into_iter()
+        .map(|x| proto::OrgScope {
+            name: x.to_string(),
+            enabled: owned_scopes.contains(&x)
+        })
+        .collect::<Vec<_>>();
+    Ok(org_scopes)
+}
+
 /// Checks if a user can access the requested scope in the requested organization
 fn can_access<'a>(driver: &'a Driver,user: &User<'_>, org_id: &str, scope: OrgScope) -> WebResult<AccessResult<'a>> {
     let org = Org::get(&driver, org_id.to_string())?.ok_or(Error::Unauthorized("The requested organization does not exist or the user has no access".to_string()))?;

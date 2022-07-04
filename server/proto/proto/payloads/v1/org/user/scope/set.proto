@@ -1,2 +1,10 @@
 syntax = "proto3";
 package dev.array21.invoicex;
+
+import "entities/org.proto";
+
+message OrgUserScopeSetRequest {
+  string userId = 1;
+  string org_id = 2;
+  repeated OrgScope orgScopes = 3;
+}
