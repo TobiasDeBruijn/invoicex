@@ -1,2 +1,7 @@
 syntax = "proto3";
 package dev.array21.invoicex;
+
+message OrgUserRemoveRequest {
+  string orgId = 1;
+  string userId = 2;
+}

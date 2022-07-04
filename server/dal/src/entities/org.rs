@@ -22,12 +22,14 @@ pub struct OrgBuilder<'a> {
 pub enum OrgScope {
     /// Allows the user to add a user to the org
     #[admin]
-    AddUser,
+    OrgUserManagment,
     /// Allows the user to view the organization
     GetOrg,
-    /// ALlows the user to delete the organization
+    /// Allows the user to delete the organization
+    #[admin]
     DeleteOrg,
     /// Allows the user to update the organization
+    #[admin]
     UpdateOrg,
 }
 

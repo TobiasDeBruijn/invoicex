@@ -14,6 +14,8 @@ pub enum Error {
     Forbidden(String),
     #[error("Bad request: {0}")]
     BadRequest(String),
+    #[error("Not found: {0}")]
+    NotFound(String),
 }
 
 impl ResponseError for Error {
@@ -23,6 +25,7 @@ impl ResponseError for Error {
             Self::Forbidden(_) => StatusCode::FORBIDDEN,
             Self::Unauthorized(_) => StatusCode::UNAUTHORIZED,
             Self::BadRequest(_) => StatusCode::BAD_REQUEST,
+            Self::NotFound(_) => StatusCode::NOT_FOUND,
         }
     }
 }

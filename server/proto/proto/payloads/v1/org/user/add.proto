@@ -1,2 +1,10 @@
 syntax = "proto3";
 package dev.array21.invoicex;
+
+import "entities/org.proto";
+
+message OrgUserAddRequest {
+  string orgId = 1;
+  string userEmail = 2;
+  bool isOrgAdmin = 3;
+}
