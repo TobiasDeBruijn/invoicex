@@ -1,0 +1,20 @@
+syntax = "proto3";
+package dev.array21.invoicex;
+
+import "entities/user.proto";
+
+message Org {
+  string id = 1;
+  string name = 2;
+}
+
+message OrgUser {
+  User user = 1;
+  repeated OrgScope orgScopes = 2;
+  bool isOrgAdmin = 3;
+}
+
+message OrgScope {
+  string name = 1;
+  bool enabled = 2;
+}

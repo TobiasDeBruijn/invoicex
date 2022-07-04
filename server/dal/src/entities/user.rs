@@ -64,7 +64,7 @@ impl<'a> Entity<'a> for User<'a> {
         })
     }
 
-    fn delete(self) -> Result<()> {
+    fn remove(self) -> Result<()> {
         let mut tx = self.driver.start_transaction(TxOpts::default())?;
 
         tx.exec_drop("DELETE FROM users WHERE id = :id", params! {

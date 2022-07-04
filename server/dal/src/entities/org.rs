@@ -1,6 +1,6 @@
 use std::str::FromStr;
 use mysql::prelude::Queryable;
-use mysql::{params, Row, Transaction, TxOpts};
+use mysql::{params, Params, Row, Transaction, TxOpts};
 use crate::{Driver, Error, gen_id};
 use crate::entities::{Entity, User};
 use proc::{Stringify, Variants, ScopeList};
@@ -18,11 +18,17 @@ pub struct OrgBuilder<'a> {
     pub creator: &'a User<'a>
 }
 
-#[derive(Debug, Clone, Stringify, Variants, ScopeList)]
+#[derive(Debug, Clone, PartialEq, Eq, Stringify, Variants, ScopeList)]
 pub enum OrgScope {
     /// Allows the user to add a user to the org
     #[admin]
-    AddUser
+    AddUser,
+    /// Allows the user to view the organization
+    GetOrg,
+    /// ALlows the user to delete the organization
+    DeleteOrg,
+    /// Allows the user to update the organization
+    UpdateOrg,
 }
 
 #[derive(Debug, Clone)]
@@ -67,7 +73,7 @@ impl<'a> Entity<'a> for Org<'a> {
         })
     }
 
-    fn delete(self) -> crate::Result<()> {
+    fn remove(self) -> crate::Result<()> {
         let mut tx = self.driver.start_transaction(TxOpts::default())?;
         tx.exec_drop("DELETE FROM org_user_links WHERE org_id = :org_id", params! {
             "org_id" => &self.id
@@ -126,6 +132,16 @@ pub struct OrgUser<'a> {
 }
 
 impl<'a> Org<'a> {
+    /// List all known orgs
+    pub fn list_available(driver: &'a Driver) -> crate::Result<Vec<Self>> {
+        let mut conn = driver.get_conn()?;
+        let rows: Vec<Row> = conn.exec("SELECT id FROM orgs", Params::Empty)?;
+        let orgs = rows.into_iter()
+            .map(|x| Ok(Org::get(driver, x.get("id").unwrap())?.unwrap()))
+            .collect::<crate::Result<Vec<_>>>()?;
+        Ok(orgs)
+    }
+
     /// Add a user to the organization. If `admin` is set to `true`, all scopes will be granted.
     /// If `admin` is set to false, only non-admin scopes will be granted.
     pub fn add_user(&mut self, user: &User<'_>, admin: bool) -> crate::Result<()> {
@@ -197,7 +213,7 @@ impl<'a> Org<'a> {
     }
 
     /// List all users in the organization
-    pub fn list_users(&mut self) -> crate::Result<Vec<OrgUser<'a>>> {
+    pub fn list_users(&self) -> crate::Result<Vec<OrgUser<'a>>> {
         let mut tx = self.driver.start_transaction(TxOpts::default())?;
         let rows: Vec<Row> = tx.exec("SELECT user_id,org_admin FROM org_user_links WHERE org_id = :org_id", params! {
             "org_id" => &self.id

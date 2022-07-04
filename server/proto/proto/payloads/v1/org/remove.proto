@@ -1,0 +1,6 @@
+syntax = "proto3";
+package dev.array21.invoicex;
+
+message RemoveOrgRequest {
+  string orgId = 1;
+}

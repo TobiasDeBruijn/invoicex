@@ -11,7 +11,7 @@ pub trait Entity<'a>: Sized {
 
     fn create(driver: &'a Driver, builder: Self::Information) -> Result<Self>;
 
-    fn delete(self) -> Result<()>;
+    fn remove(self) -> Result<()>;
 
     fn update(&mut self) -> Result<()>;
 

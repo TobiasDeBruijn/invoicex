@@ -1,0 +1,12 @@
+syntax = "proto3";
+package dev.array21.invoicex;
+
+import "entities/org.proto";
+
+message CreateOrgRequest {
+  string name = 1;
+}
+
+message CreateOrgResponse {
+  Org org = 1;
+}
