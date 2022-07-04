@@ -38,3 +38,23 @@ CREATE TABLE service_tokens (
     token VARCHAR(64) NOT NULL PRIMARY KEY,
     associated_user_id VARCHAR(32) NOT NULL
 );
+
+CREATE TABLE orgs (
+    id VARCHAR(32) NOT NULL PRIMARY KEY,
+    name VARCHAR(64) NOT NULL,
+    created_at BIGINT NOT NULL
+);
+
+CREATE TABLE org_user_links (
+    org_id VARCHAR(32) NOT NULL,
+    user_id VARCHAR(32) NOT NULL,
+    org_admin BOOL NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (org_id, user_id)
+);
+
+CREATE TABLE org_user_link_scopes (
+    org_id VARCHAR(32) NOT NULL,
+    user_id VARCHAR(32) NOT NULL,
+    scope_name VARCHAR(64) NOT NULL,
+    PRIMARY KEY (org_id, user_id)
+);

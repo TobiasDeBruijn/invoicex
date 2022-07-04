@@ -7,6 +7,7 @@ use std::str::FromStr;
 use rand::RngCore;
 use crate::hashing::{hash, verify};
 
+#[derive(Debug, Clone)]
 pub struct User<'a> {
     driver: &'a Driver,
     pub id: String,
@@ -170,7 +171,7 @@ impl<'a> User<'a> {
         }))
     }
 
-    pub fn delete_session(&self, session: &str) -> Result<()> {
+    pub fn delete_session(&mut self, session: &str) -> Result<()> {
         let mut conn = self.driver.get_conn()?;
         conn.exec_drop("DELETE FROM user_sessions WHERE id = :id", params! {
             "id" => &session
@@ -320,6 +321,9 @@ impl<'a> User<'a> {
 
     pub fn create_session(&mut self) -> Result<SessionDescription> {
         let id = gen_id();
+        // A user session ID is prefixed with US_, add the prefix
+        let id = format!("US_{id}");
+
         let mut conn = self.driver.get_conn()?;
 
         let expires_at = (time::OffsetDateTime::now_utc() + time::Duration::days(30)).unix_timestamp();

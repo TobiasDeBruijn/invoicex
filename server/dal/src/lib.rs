@@ -22,6 +22,8 @@ pub enum Error {
     UnknownToken,
     #[error("Token has expired")]
     ExpiredToken,
+    #[error("Invalid state: {0}")]
+    InvalidState(String),
 }
 
 mod migrations {

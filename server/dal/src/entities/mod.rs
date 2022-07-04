@@ -1,8 +1,10 @@
 use crate::{Result, Driver};
 
 mod user;
+mod org;
 
 pub use user::*;
+pub use org::*;
 
 pub trait Entity<'a>: Sized {
     type Information;

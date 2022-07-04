@@ -3,6 +3,7 @@ use actix_web::web::ServiceConfig;
 use crate::routable::Routable;
 
 mod auth;
+mod org;
 
 pub struct Router;
 

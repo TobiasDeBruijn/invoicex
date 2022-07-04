@@ -9,10 +9,11 @@ actix-cors = "0.6"
 tracing-actix-web = "0.6"
 tracing = "0.1.35"
 thiserror = "1.0.31"
-#actix-multiresponse = "0.2"
+actix-multiresponse = "0.2"
 
-[dependencies.actix-multiresponse]
-path = "/home/tobias/projects/personal/actix-multiresponse"
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
 
 [dependencies.dal]
 path = "../dal"
