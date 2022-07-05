@@ -1,6 +1,16 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>Welcome to Your Vue.js App</h1>
-  </div>
+  <hello-world />
 </template>
+
+<script lang="ts">
+  import Vue from 'vue'
+  import HelloWorld from '../components/HelloWorld.vue'
+
+  export default Vue.extend({
+    name: 'Home',
+
+    components: {
+      HelloWorld,
+    },
+  })
+</script>
