@@ -58,3 +58,13 @@ CREATE TABLE org_user_link_scopes (
     scope_name VARCHAR(64) NOT NULL,
     PRIMARY KEY (org_id, user_id)
 );
+
+CREATE TABLE products (
+    id VARCHAR(32) NOT NULL PRIMARY KEY,
+    org_id VARCHAR(32) NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    product_code VARCHAR(64) DEFAULT NULL,
+    description TEXT DEFAULT NULL,
+    price_per_unit FLOAT NOT NULL DEFAULT 0.0,
+    tax_percentage FLOAT NOT NULL DEFAULT 0.0
+);

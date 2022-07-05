@@ -25,12 +25,23 @@ pub enum OrgScope {
     OrgUserManagment,
     /// Allows the user to view the organization
     GetOrg,
-    /// Allows the user to delete the organization
+    /// Allows the user to remove the organization
     #[admin]
-    DeleteOrg,
+    RemoveOrg,
     /// Allows the user to update the organization
     #[admin]
     UpdateOrg,
+    /// Allows the user to get and list products
+    GetProduct,
+    /// Allows the user to create products
+    #[admin]
+    CreateProduct,
+    /// Allows the user to remove products
+    #[admin]
+    RemoveProduct,
+    /// Allows the user to update existing products
+    #[admin]
+    UpdateProduct,
 }
 
 #[derive(Debug, Clone)]

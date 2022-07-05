@@ -4,7 +4,7 @@ use serde::Deserialize;
 use dal::entities::OrgScope;
 use proto::GetOrgResponse;
 use crate::error::{Error, WebResult};
-use crate::routes::v1::org::can_access;
+use crate::routes::v1::can_access;
 use crate::session::Session;
 use crate::WebData;
 

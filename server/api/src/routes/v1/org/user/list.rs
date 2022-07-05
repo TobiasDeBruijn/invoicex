@@ -7,7 +7,8 @@ use serde::Deserialize;
 use dal::entities::OrgScope;
 use proto::OrgUserListResponse;
 use crate::error::Error;
-use crate::routes::v1::org::{can_access, get_user_org_scopes_proto};
+use crate::routes::v1::org::get_user_org_scopes_proto;
+use crate::routes::v1::can_access;
 
 #[derive(Debug, Deserialize)]
 pub struct Query {

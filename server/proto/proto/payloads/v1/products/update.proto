@@ -1,0 +1,16 @@
+syntax = "proto3";
+package dev.array21.invoicex;
+
+message ProductUpdateRequest {
+  string productId = 1;
+
+  optional string name = 2;
+  optional string description = 3;
+  optional string productCode = 4;
+  optional float pricePerUnit = 5;
+  optional float taxPercentage = 6;
+
+  optional bool removeDescription = 7;
+  optional bool removeTaxPercentage = 8;
+  optional bool removeProductCode = 9;
+}

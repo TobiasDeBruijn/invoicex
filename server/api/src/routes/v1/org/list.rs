@@ -2,7 +2,7 @@ use actix_multiresponse::Payload;
 use dal::entities::{Org, OrgScope};
 use proto::ListOrgResponse;
 use crate::error::WebResult;
-use crate::routes::v1::org::can_access;
+use crate::routes::v1::can_access;
 use crate::session::Session;
 use crate::WebData;
 

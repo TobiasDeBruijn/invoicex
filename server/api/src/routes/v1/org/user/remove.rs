@@ -3,7 +3,7 @@ use dal::entities::{OrgScope, User, Entity};
 use proto::OrgUserRemoveRequest;
 use crate::empty::Empty;
 use crate::error::{Error, WebResult};
-use crate::routes::v1::org::can_access;
+use crate::routes::v1::can_access;
 use crate::session::Session;
 use crate::WebData;
 

@@ -1,0 +1,8 @@
+syntax = "proto3";
+package dev.array21.invoicex;
+
+import "entities/product.proto";
+
+message ProductListResponse {
+  repeated Product products = 1;
+}
